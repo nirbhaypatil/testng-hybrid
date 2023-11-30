@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -120,8 +119,8 @@ public class Keyword {
     /**
      * hovers over a element
      *
-     * @param locatorType
-     * @param locator
+     * @param locatorType String
+     * @param locator String
      */
     public void hoverOn(String locatorType, String locator){
         Actions action = new Actions(Keyword.getDriver());
@@ -129,16 +128,14 @@ public class Keyword {
     }
 
     public String getText(String locatorType, String locator){
-        WebElement element = null;
-        element = getElement(locatorType,locator);
+        WebElement element = getElement(locatorType,locator);
         return element.getText();
     }
 
     public List<String> getTexts(String locatorType, String locator){
 
         List<String> texts = new ArrayList<>();
-        List<WebElement> elements = new ArrayList<WebElement>();
-        elements = getElements(locatorType,locator);
+        List<WebElement> elements =  getElements(locatorType,locator);
         for ( WebElement element :elements ) {
            texts.add(element.getText());
         }
@@ -178,4 +175,8 @@ public class Keyword {
         }
     }
 
+    public void hoverOn(WebElement menu) {
+        Actions action = new Actions(Keyword.getDriver());
+        action.moveToElement(menu).perform();
+    }
 }

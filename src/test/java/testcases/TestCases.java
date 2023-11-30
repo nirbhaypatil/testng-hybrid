@@ -8,12 +8,13 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pages.MainMenu;
+import pages.ProductItemDetailsPage;
+import pages.SearchResultsPage;
 import waits.WaitFor;
 import java.time.Duration;
 import java.util.List;
@@ -53,21 +54,49 @@ public class TestCases extends TestBase {
         keyword.quitAllWindows();
     }
 
-    @Test
+    //@Test
     public void verifyErrorMessageKidsShortsToBag() throws InterruptedException {
         Keyword keyword = new Keyword();
+        //go to kids -> shorts menu
         keyword.hoverOn("css","div.desktop-navLink a[href='/shop/kids']");
         WaitFor.waitForElementToPresent("css","div[class='desktop-categoryContainer'][data-group='kids']");
         keyword.clickOn("linktext","Shorts");
         WaitFor.waitForElementToPresent("css","ul.results-base");
+
+        //add first item
         keyword.clickOn("css","ul.results-base li.product-base:first-child");
         keyword.switchToNewTab();
         WaitFor.waitForElementToPresent("css","div.pdp-add-to-bag.pdp-button");
         keyword.clickOn("css","div.pdp-add-to-bag.pdp-button");
-        //Write Assertion here.
+
+        //Assert error message before adding item to bag
         String error = keyword.getText("css","span.size-buttons-size-error-message");
         Assert.assertEquals(error,"Please select a size");
 
-        keyword.quitAllWindows();
+        keyword.closeBrowser();
+    }
+
+    @Test
+    public void verifyNoKidsShortsInBag() throws InterruptedException {
+
+        MainMenu menu = new MainMenu();
+        //go to kids -> shorts menu
+        menu.hoverOn("kids");
+        menu.clickOnMenuItem("Shorts");
+
+        //keyword.clickOn("linktext","Shorts");
+
+        //add first item
+        //keyword.clickOn("css","ul.results-base li.product-base:first-child");
+        //keyword.switchToNewTab();
+        SearchResultsPage searchResults = new SearchResultsPage();
+        searchResults.selectFirstProduct();
+        ProductItemDetailsPage productItem = new ProductItemDetailsPage();
+        productItem.addToBag();
+        //Assert error message before adding item to bag
+        String error = productItem.getProductItemError();
+        Assert.assertEquals(error,"Please select a size");
+
+
     }
 }

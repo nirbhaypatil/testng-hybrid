@@ -1,5 +1,6 @@
 package base;
 
+import Errors.InvalidBrowserError;
 import Keywords.Keyword;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -9,11 +10,11 @@ public class TestBase {
     Keyword keyword = new Keyword();
 
     @BeforeTest
-    public void setUp() throws Exception{
+    public void setUp() throws InvalidBrowserError {
 
-        keyword.openBrowser("Chrome");
+        keyword.openBrowser(Config.getBrowserName());
         keyword.maximizeBrowser();
-        keyword.openUrl("https://www.myntra.com/");
+        keyword.openUrl(Config.getAppUrl("uat"));
     }
 
     @AfterTest

@@ -12,5 +12,4 @@ public class InvalidSelectorException extends RuntimeException {
         return "Invalid locator type: "+locatorType;
     }
 
-
 }
