@@ -21,21 +21,7 @@ import java.util.List;
 
 public class TestCases extends TestBase {
 
-    //@Test
-    public void sauceLogin(){
-        RemoteWebDriver webDriver = new ChromeDriver();
-        webDriver.get("https://www.saucedemo.com/");
-        webDriver.manage().window().maximize();
 
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("login-button")));
-        webDriver.findElement(By.name("user-name")).sendKeys("standard_user");
-        webDriver.findElement(By.id("password")).sendKeys("secret_sauce");
-        webDriver.findElement(By.id("login-button")).click();
-
-
-        webDriver.quit();
-    }
 
     //@Test
     public void searchPoloShirtsWithKeywords(){
@@ -84,19 +70,14 @@ public class TestCases extends TestBase {
         menu.hoverOn("kids");
         menu.clickOnMenuItem("Shorts");
 
-        //keyword.clickOn("linktext","Shorts");
-
-        //add first item
-        //keyword.clickOn("css","ul.results-base li.product-base:first-child");
-        //keyword.switchToNewTab();
         SearchResultsPage searchResults = new SearchResultsPage();
         searchResults.selectFirstProduct();
         ProductItemDetailsPage productItem = new ProductItemDetailsPage();
         productItem.addToBag();
+
         //Assert error message before adding item to bag
         String error = productItem.getProductItemError();
         Assert.assertEquals(error,"Please select a size");
-
 
     }
 }
