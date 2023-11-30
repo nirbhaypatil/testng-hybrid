@@ -1,4 +1,4 @@
-package Errors;
+package errors;
 
 public class InvalidSelectorException extends RuntimeException {
 

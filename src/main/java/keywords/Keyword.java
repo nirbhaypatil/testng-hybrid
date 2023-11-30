@@ -1,7 +1,7 @@
-package Keywords;
+package keywords;
 
-import Errors.InvalidBrowserError;
-import Errors.InvalidSelectorException;
+import errors.InvalidBrowserError;
+import errors.InvalidSelectorException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;

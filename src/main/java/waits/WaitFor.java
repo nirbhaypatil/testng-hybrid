@@ -1,7 +1,7 @@
 package waits;
 
-import Errors.InvalidSelectorException;
-import Keywords.Keyword;
+import errors.InvalidSelectorException;
+import keywords.Keyword;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;

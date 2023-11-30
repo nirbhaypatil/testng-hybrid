@@ -1,7 +1,7 @@
 package base;
 
-import Errors.InvalidBrowserError;
-import Keywords.Keyword;
+import errors.InvalidBrowserError;
+import keywords.Keyword;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 

@@ -1,10 +1,9 @@
 package pages;
 
-import Keywords.Keyword;
+import keywords.Keyword;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Wait;
 import waits.WaitFor;
 
 public class ProductItemDetailsPage {

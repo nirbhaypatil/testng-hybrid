@@ -1,14 +1,9 @@
 package testcases;
 
 
-import Keywords.Keyword;
+import keywords.Keyword;
 import base.TestBase;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -16,7 +11,7 @@ import pages.MainMenu;
 import pages.ProductItemDetailsPage;
 import pages.SearchResultsPage;
 import waits.WaitFor;
-import java.time.Duration;
+
 import java.util.List;
 
 public class TestCases extends TestBase {
