@@ -16,47 +16,6 @@ import java.util.List;
 
 public class TestCases extends TestBase {
 
-
-
-    //@Test
-    public void searchPoloShirtsWithKeywords(){
-        Keyword keyword = new Keyword();
-
-        keyword.enterText("class","desktop-searchBar","Polo Shirts", Keys.ENTER);
-        WaitFor.waitForElementToPresent("class","results-base");
-        List<String> productTitles = keyword.getTexts("css","h3.product-brand");
-
-        SoftAssert softly = new SoftAssert();
-        for(String productTitle : productTitles){
-            System.out.println(productTitle);
-            softly.assertTrue(productTitle.contains("U.S. Polo Assn"));
-        }
-        softly.assertAll();
-        keyword.quitAllWindows();
-    }
-
-    //@Test
-    public void verifyErrorMessageKidsShortsToBag() throws InterruptedException {
-        Keyword keyword = new Keyword();
-        //go to kids -> shorts menu
-        keyword.hoverOn("css","div.desktop-navLink a[href='/shop/kids']");
-        WaitFor.waitForElementToPresent("css","div[class='desktop-categoryContainer'][data-group='kids']");
-        keyword.clickOn("linktext","Shorts");
-        WaitFor.waitForElementToPresent("css","ul.results-base");
-
-        //add first item
-        keyword.clickOn("css","ul.results-base li.product-base:first-child");
-        keyword.switchToNewTab();
-        WaitFor.waitForElementToPresent("css","div.pdp-add-to-bag.pdp-button");
-        keyword.clickOn("css","div.pdp-add-to-bag.pdp-button");
-
-        //Assert error message before adding item to bag
-        String error = keyword.getText("css","span.size-buttons-size-error-message");
-        Assert.assertEquals(error,"Please select a size");
-
-        keyword.closeBrowser();
-    }
-
     @Test
     public void verifyNoKidsShortsInBag() throws InterruptedException {
 
