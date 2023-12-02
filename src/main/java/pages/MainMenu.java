@@ -15,8 +15,17 @@ public class MainMenu {
     @FindBy(css= "div[class='desktop-categoryContainer'][data-group='kids']")
     public WebElement kidsMenuFlyOut;
 
+    @FindBy(css = "div.desktop-navLink a[href='/shop/men']")
+    public WebElement mensMenuItem;
+
+    @FindBy(css = "div[class='desktop-categoryContainer'][data-group='men']")
+    public WebElement mensMenuFlyOut;
+
     @FindBy(linkText= "Shorts")
     public WebElement menuItemShorts;
+
+    @FindBy(css= "a[href='/men-jeans']")
+    public WebElement menuItemMenJeans;
 
     public MainMenu(){
         PageFactory.initElements(Keyword.getDriver(),this);
@@ -34,6 +43,10 @@ public class MainMenu {
                  keyword.hoverOn(kidsMenuItem);
                  WaitFor.waitForElementToPresent(kidsMenuFlyOut);
                  break;
+            case "men":
+                keyword.hoverOn(mensMenuItem);
+                WaitFor.waitForElementToPresent(mensMenuFlyOut);
+                break;
             default:
                  throw new InvalidMenuItemException(menu);
         }
@@ -44,6 +57,9 @@ public class MainMenu {
         switch(menuItem.toLowerCase()){
             case "shorts":
                 menuItemShorts.click();
+                break;
+            case "jeans":
+                menuItemMenJeans.click();
                 break;
             default:
                 throw new InvalidMenuItemException(menuItem);

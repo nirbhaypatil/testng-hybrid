@@ -5,6 +5,8 @@ import keywords.Keyword;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+import java.util.Scanner;
+
 public class TestBase {
 
     Keyword keyword = new Keyword();

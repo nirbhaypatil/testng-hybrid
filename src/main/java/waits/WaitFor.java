@@ -77,4 +77,7 @@ public class WaitFor {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    public static void waitForElementToContainText(WebElement cart,String text) {
+        wait.until(ExpectedConditions.textToBePresentInElement(cart,text));
+    }
 }
