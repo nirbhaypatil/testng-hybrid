@@ -11,8 +11,8 @@ import pages.SearchResultsPage;
 public class TestCases extends TestBase {
 
     @Test
-    public void verifyNoKidsShortsInBag() throws InterruptedException {
-        
+    public void verifyMessageErrorForNoKidsShortsInBag() throws InterruptedException {
+
         MainMenu menu = new MainMenu();
         //go to kids -> shorts menu
         menu.hoverOn("kids");
