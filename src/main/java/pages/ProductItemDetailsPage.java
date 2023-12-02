@@ -6,6 +6,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebElement;
 import waits.WaitFor;
 
+import java.util.List;
+
 public class ProductItemDetailsPage {
 
     @FindBy(css="div.pdp-add-to-bag.pdp-button")
@@ -27,7 +29,11 @@ public class ProductItemDetailsPage {
     public WebElement btnGoToBag;
 
     @FindBy(css="div.itemComponents-base-toolTipCTA")
-    public WebElement itemComponentsToolTip;
+    public List<WebElement> itemComponentsToolTip;
+
+
+    @FindBy(css="div.itemComponents-base-invisibleBackDrop")
+    public WebElement dlgInvisibleComponent;
 
     @FindBy(css="button.bulkActionStrip-desktopBulkRemove")
     public WebElement btnRemove;
@@ -83,12 +89,13 @@ public class ProductItemDetailsPage {
     }
 
     public void removeItemFromBag() {
-        WaitFor.waitForElementToBeClickable(itemComponentsToolTip);
-        itemComponentsToolTip.click();
-        WaitFor.waitForElementToBeClickable(btnRemove);
-        btnRemove.click();
-        WaitFor.waitForElementToPresent(dlgRemoveItem);
-        dlgBtnRemove.click();
+       if (dlgInvisibleComponent.isDisplayed()){
+           dlgInvisibleComponent.click();
+       }
+       WaitFor.waitForElementToBeClickable(btnRemove);
+       btnRemove.click();
+       WaitFor.waitForElementToPresent(dlgRemoveItem);
+       dlgBtnRemove.click();
     }
 
     public boolean isCartEmpty() {
