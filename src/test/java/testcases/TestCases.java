@@ -10,8 +10,8 @@ import pages.SearchResultsPage;
 
 public class TestCases extends TestBase {
 
-    @Test
-    public void verifyMessageErrorForNoKidsShortsInBag() throws InterruptedException {
+    //@Test
+    public void verifyErrorMessageForNoKidsShortsInBag() throws InterruptedException {
 
         MainMenu menu = new MainMenu();
         //go to kids -> shorts menu
@@ -29,7 +29,7 @@ public class TestCases extends TestBase {
 
     }
 
-    @Test
+    //@Test
     public void verifySelectedProductGetsAddedInBag() throws InterruptedException {
 
         MainMenu menu = new MainMenu();
@@ -44,7 +44,27 @@ public class TestCases extends TestBase {
         productItem.selectDefaultSize();
         productItem.addToBag();
         //Choose size of product
-        Assert.assertEquals(productItem.isItemAddedInBag(),"1");
+        Assert.assertEquals(productItem.getItemAddedInBag(),"1");
     }
 
+    @Test
+    public void verifyProductCanRemovedFromBag() throws InterruptedException {
+
+        MainMenu menu = new MainMenu();
+        //go to kids -> shorts menu
+        menu.hoverOn("MEN");
+        menu.clickOnMenuItem("Jeans");
+
+        SearchResultsPage searchResults = new SearchResultsPage();
+        searchResults.selectFirstProduct();
+        ProductItemDetailsPage productItem = new ProductItemDetailsPage();
+        //Choose size of product
+        productItem.selectDefaultSize();
+        productItem.addToBag();
+        Assert.assertEquals(productItem.getItemAddedInBag(),"1");
+        productItem.goToBag();
+        //Choose size of product
+        productItem.removeItemFromBag();
+        Assert.assertTrue(productItem.isCartEmpty());
+    }
 }

@@ -20,6 +20,24 @@ public class ProductItemDetailsPage {
     @FindBy(css="a.desktop-cart span.desktop-badge")
     public WebElement cart;
 
+    @FindBy(css="div.emptyCart-base-mainContainer")
+    public WebElement emptyCart;
+
+    @FindBy(css="a.pdp-goToCart")
+    public WebElement btnGoToBag;
+
+    @FindBy(css="div.itemComponents-base-toolTipCTA")
+    public WebElement itemComponentsToolTip;
+
+    @FindBy(css="button.bulkActionStrip-desktopBulkRemove")
+    public WebElement btnRemove;
+
+    @FindBy(css="div.bulkActionStrip-confirmationModalDesktop")
+    public WebElement dlgRemoveItem;
+
+    @FindBy(css="div.bulkActionStrip-confirmationModalDesktop div:first-child button")
+    public WebElement dlgBtnRemove;
+
     public ProductItemDetailsPage(){
         PageFactory.initElements(Keyword.getDriver(),this);
     }
@@ -46,14 +64,35 @@ public class ProductItemDetailsPage {
     }
 
     /**
-     * Returns no of items in bag
+     * Returns no of items in bag.
      *
      * @return String
      */
-    public String isItemAddedInBag(){
-
+    public String getItemAddedInBag(){
         WaitFor.waitForElementToContainText(cart,"1");
-        System.out.println("no of Items in the bag"+cart.getText());
+        System.out.println("no of Items in the bag: "+cart.getText());
         return cart.getText();
+    }
+
+    /**
+     *  Clicks on GO TO BAG button after adding item in cart.
+     */
+    public void goToBag() {
+        WaitFor.waitForElementToBeClickable(btnGoToBag);
+        btnGoToBag.click();
+    }
+
+    public void removeItemFromBag() {
+        WaitFor.waitForElementToBeClickable(itemComponentsToolTip);
+        itemComponentsToolTip.click();
+        WaitFor.waitForElementToBeClickable(btnRemove);
+        btnRemove.click();
+        WaitFor.waitForElementToPresent(dlgRemoveItem);
+        dlgBtnRemove.click();
+    }
+
+    public boolean isCartEmpty() {
+        WaitFor.waitForElementToPresent(emptyCart);
+        return emptyCart.getText().contains("There is nothing in your bag. Let's add some items.");
     }
 }
