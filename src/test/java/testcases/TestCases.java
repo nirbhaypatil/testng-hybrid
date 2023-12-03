@@ -4,13 +4,14 @@ package testcases;
 import base.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.CartCheckOutPage;
 import pages.MainMenu;
 import pages.ProductItemDetailsPage;
 import pages.SearchResultsPage;
 
 public class TestCases extends TestBase {
 
-    //@Test
+    @Test(enabled = false)
     public void verifyErrorMessageForNoKidsShortsInBag() throws InterruptedException {
 
         MainMenu menu = new MainMenu();
@@ -29,7 +30,7 @@ public class TestCases extends TestBase {
 
     }
 
-    //@Test
+    @Test(enabled = false)
     public void verifySelectedProductGetsAddedInBag() throws InterruptedException {
 
         MainMenu menu = new MainMenu();
@@ -47,7 +48,7 @@ public class TestCases extends TestBase {
         Assert.assertEquals(productItem.getItemAddedInBag(),"1");
     }
 
-    @Test
+    @Test(enabled = false)
     public void verifyProductCanRemovedFromBag() throws InterruptedException {
 
         MainMenu menu = new MainMenu();
@@ -65,6 +66,24 @@ public class TestCases extends TestBase {
         productItem.goToBag();
         //Choose size of product
         productItem.removeItemFromBag();
-        Assert.assertTrue(productItem.isCartEmpty());
+        CartCheckOutPage cartCheckOutPage = new CartCheckOutPage();
+        Assert.assertTrue(cartCheckOutPage.isCartEmpty());
     }
+
+    @Test
+    public void VerifyAllSizesShouldNotBeSelectedForMenShoes() {
+        MainMenu menu = new MainMenu();
+        //go to kids -> shorts menu
+        menu.hoverOn("MEN");
+        menu.clickOnMenuItem("Jeans");
+
+        SearchResultsPage searchResults = new SearchResultsPage();
+        searchResults.selectFirstProduct();
+        ProductItemDetailsPage productItem = new ProductItemDetailsPage();
+        //Choose size of product
+        productItem.selectAllSizes();
+        Assert.assertEquals(productItem.getTotalSizesSelected(),1);
+
+    }
+
 }

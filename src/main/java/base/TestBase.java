@@ -21,7 +21,7 @@ public class TestBase {
         keyword.openUrl(Config.getAppUrl("uat"));
     }
 
-    //@AfterMethod
+    @AfterMethod
     public void tearDown(){
         keyword.quitAllWindows();
     }

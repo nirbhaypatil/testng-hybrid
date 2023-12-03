@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebElement;
 import waits.WaitFor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductItemDetailsPage {
@@ -19,18 +20,17 @@ public class ProductItemDetailsPage {
     @FindBy(css="div.size-buttons-tipAndBtnContainer:first-child button")
     public WebElement defaultSizeButton;
 
+    @FindBy(css="div.size-buttons-tipAndBtnContainer button")
+    public List<WebElement> btnSize;
+
     @FindBy(css="a.desktop-cart span.desktop-badge")
     public WebElement cart;
-
-    @FindBy(css="div.emptyCart-base-mainContainer")
-    public WebElement emptyCart;
 
     @FindBy(css="a.pdp-goToCart")
     public WebElement btnGoToBag;
 
     @FindBy(css="div.itemComponents-base-toolTipCTA")
     public List<WebElement> itemComponentsToolTip;
-
 
     @FindBy(css="div.itemComponents-base-invisibleBackDrop")
     public WebElement dlgInvisibleComponent;
@@ -70,6 +70,16 @@ public class ProductItemDetailsPage {
     }
 
     /**
+     *  Selects all sizes shown on page for product items
+     */
+    public void selectAllSizes() {
+        WaitFor.waitForElementToBeClickable(addToBag);
+        for ( WebElement sizebutton :btnSize ) {
+            sizebutton.click();
+        }
+    }
+
+    /**
      * Returns no of items in bag.
      *
      * @return String
@@ -98,8 +108,17 @@ public class ProductItemDetailsPage {
        dlgBtnRemove.click();
     }
 
-    public boolean isCartEmpty() {
-        WaitFor.waitForElementToPresent(emptyCart);
-        return emptyCart.getText().contains("There is nothing in your bag. Let's add some items.");
+    public int getTotalSizesSelected() {
+        List<String> sizesSelected = new ArrayList<String>();
+
+        if(!btnSize.isEmpty()){
+            for ( WebElement button : btnSize ) {
+                if(button.getAttribute("class").contains("selected")){
+                    sizesSelected.add(button.getText());
+                }
+            }
+        }
+        System.out.println(sizesSelected.size()+" selected number of sizes...");
+        return sizesSelected.size();
     }
 }
