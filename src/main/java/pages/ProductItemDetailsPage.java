@@ -44,6 +44,9 @@ public class ProductItemDetailsPage {
     @FindBy(css="div.bulkActionStrip-confirmationModalDesktop div:first-child button")
     public WebElement dlgBtnRemove;
 
+    @FindBy(css="div.priceDetail-base-row span.priceDetail-base-value.priceDetail-base-action")
+    public WebElement linkApplyCoupon;
+
     public ProductItemDetailsPage(){
         PageFactory.initElements(Keyword.getDriver(),this);
     }
@@ -86,7 +89,6 @@ public class ProductItemDetailsPage {
      */
     public String getItemAddedInBag(){
         WaitFor.waitForElementToContainText(cart,"1");
-        System.out.println("no of Items in the bag: "+cart.getText());
         return cart.getText();
     }
 
@@ -96,12 +98,14 @@ public class ProductItemDetailsPage {
     public void goToBag() {
         WaitFor.waitForElementToBeClickable(btnGoToBag);
         btnGoToBag.click();
+        if (dlgInvisibleComponent.isDisplayed()){
+            dlgInvisibleComponent.click();
+            System.out.println("clicked invisible dialog");
+        }
+
     }
 
     public void removeItemFromBag() {
-       if (dlgInvisibleComponent.isDisplayed()){
-           dlgInvisibleComponent.click();
-       }
        WaitFor.waitForElementToBeClickable(btnRemove);
        btnRemove.click();
        WaitFor.waitForElementToPresent(dlgRemoveItem);
@@ -120,5 +124,12 @@ public class ProductItemDetailsPage {
         }
         System.out.println(sizesSelected.size()+" selected number of sizes...");
         return sizesSelected.size();
+    }
+
+    public void applyCoupon() {
+        if(linkApplyCoupon.isDisplayed()){
+
+           linkApplyCoupon.click();
+        }
     }
 }

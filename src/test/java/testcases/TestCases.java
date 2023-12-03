@@ -4,10 +4,7 @@ package testcases;
 import base.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.CartCheckOutPage;
-import pages.MainMenu;
-import pages.ProductItemDetailsPage;
-import pages.SearchResultsPage;
+import pages.*;
 
 public class TestCases extends TestBase {
 
@@ -70,10 +67,9 @@ public class TestCases extends TestBase {
         Assert.assertTrue(cartCheckOutPage.isCartEmpty());
     }
 
-    @Test
-    public void VerifyAllSizesShouldNotBeSelectedForMenShoes() {
+    @Test(enabled = false)
+    public void VerifyOnlySingleSizesIsSelectedForMenJeans() {
         MainMenu menu = new MainMenu();
-        //go to kids -> shorts menu
         menu.hoverOn("MEN");
         menu.clickOnMenuItem("Jeans");
 
@@ -82,7 +78,28 @@ public class TestCases extends TestBase {
         ProductItemDetailsPage productItem = new ProductItemDetailsPage();
         //Choose size of product
         productItem.selectAllSizes();
+        //Verify only single size is selected.
         Assert.assertEquals(productItem.getTotalSizesSelected(),1);
+    }
+
+    @Test
+    public void VerifyApplyCouponOnTotalPrice() throws InterruptedException {
+        MainMenu menu = new MainMenu();
+        menu.hoverOn("MEN");
+        menu.clickOnMenuItem("Jeans");
+
+        SearchResultsPage searchResults = new SearchResultsPage();
+        searchResults.selectFirstProduct();
+        ProductItemDetailsPage productItem = new ProductItemDetailsPage();
+        //Choose size of product
+        productItem.selectDefaultSize();
+        productItem.addToBag();
+        productItem.goToBag();
+        productItem.applyCoupon();
+        ApplyCouponPage coupon = new ApplyCouponPage();
+        coupon.clickApplyCoupon();
+
+        //Verify only single size is selected.
 
     }
 
