@@ -35,17 +35,8 @@ public class ProductItemDetailsPage {
     @FindBy(css="div.itemComponents-base-invisibleBackDrop")
     public WebElement dlgInvisibleComponent;
 
-    @FindBy(css="button.bulkActionStrip-desktopBulkRemove")
-    public WebElement btnRemove;
 
-    @FindBy(css="div.bulkActionStrip-confirmationModalDesktop")
-    public WebElement dlgRemoveItem;
 
-    @FindBy(css="div.bulkActionStrip-confirmationModalDesktop div:first-child button")
-    public WebElement dlgBtnRemove;
-
-    @FindBy(css="div.priceDetail-base-row span.priceDetail-base-value.priceDetail-base-action")
-    public WebElement linkApplyCoupon;
 
     public ProductItemDetailsPage(){
         PageFactory.initElements(Keyword.getDriver(),this);
@@ -105,13 +96,6 @@ public class ProductItemDetailsPage {
 
     }
 
-    public void removeItemFromBag() {
-       WaitFor.waitForElementToBeClickable(btnRemove);
-       btnRemove.click();
-       WaitFor.waitForElementToPresent(dlgRemoveItem);
-       dlgBtnRemove.click();
-    }
-
     public int getTotalSizesSelected() {
         List<String> sizesSelected = new ArrayList<String>();
 
@@ -126,10 +110,4 @@ public class ProductItemDetailsPage {
         return sizesSelected.size();
     }
 
-    public void applyCoupon() {
-        if(linkApplyCoupon.isDisplayed()){
-
-           linkApplyCoupon.click();
-        }
-    }
 }

@@ -61,10 +61,10 @@ public class TestCases extends TestBase {
         productItem.addToBag();
         Assert.assertEquals(productItem.getItemAddedInBag(),"1");
         productItem.goToBag();
+        CartCheckOutPage bagPage = new CartCheckOutPage();
         //Choose size of product
-        productItem.removeItemFromBag();
-        CartCheckOutPage cartCheckOutPage = new CartCheckOutPage();
-        Assert.assertTrue(cartCheckOutPage.isCartEmpty());
+        bagPage.removeItemFromBag();
+        Assert.assertTrue(bagPage.isCartEmpty());
     }
 
     @Test(enabled = false)
@@ -95,11 +95,12 @@ public class TestCases extends TestBase {
         productItem.selectDefaultSize();
         productItem.addToBag();
         productItem.goToBag();
-        productItem.applyCoupon();
+        CartCheckOutPage bagPage = new CartCheckOutPage();
+        bagPage.applyCoupon();
         ApplyCouponPage coupon = new ApplyCouponPage();
         coupon.clickApplyCoupon();
+        bagPage.isCouponApplied();
 
-        //Verify only single size is selected.
 
     }
 
