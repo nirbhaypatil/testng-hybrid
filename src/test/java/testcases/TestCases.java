@@ -99,8 +99,7 @@ public class TestCases extends TestBase {
         bagPage.applyCoupon();
         ApplyCouponPage coupon = new ApplyCouponPage();
         coupon.clickApplyCoupon();
-        bagPage.isCouponApplied();
-
+        Assert.assertTrue(bagPage.isCouponApplied());
 
     }
 

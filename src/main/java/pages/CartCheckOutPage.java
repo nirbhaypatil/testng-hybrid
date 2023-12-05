@@ -51,15 +51,14 @@ public class CartCheckOutPage {
         dlgBtnRemove.click();
     }
 
-    public void isCouponApplied(){
-        Pattern pattern = Pattern.compile("Coupon Discount(\\s)*(\\-)(\\?)[0-9]+");
-        Matcher matcher = null;
+    public boolean isCouponApplied(){
+        Pattern pattern = Pattern.compile("Coupon Discount\\s.*[0-9]+");
         boolean found = false;
 
         for ( WebElement prices: priceDetails
              ) {
             String priceItem = prices.getText();
-            matcher = pattern.matcher(priceItem);
+            Matcher matcher = pattern.matcher(priceItem);
             System.out.println(priceItem);
             if(matcher.find()){
                 System.out.println("I found the text "+matcher.group()+" starting at index "+
@@ -69,6 +68,7 @@ public class CartCheckOutPage {
             if(found)
                 break;
         }
+        return found;
     }
 
 }
