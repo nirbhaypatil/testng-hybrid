@@ -4,6 +4,7 @@ import keywords.Keyword;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.w3c.dom.html.HTMLInputElement;
 import waits.WaitFor;
 
 import java.util.List;
@@ -29,6 +30,21 @@ public class CartCheckOutPage {
 
     @FindBy(css="div#priceBlock div.priceDetail-base-row")
     public List<WebElement> priceDetails;
+
+    @FindBy(css="div.addressStrip-base-desktopContainer button")
+    public WebElement btnPinCode;
+
+    @FindBy(css="div.modal-base-modal.addressStrip-base-desktopModalContainer")
+    public WebElement dlgDeliveryPinCode;
+
+    @FindBy(css="input#pincode")
+    public WebElement inputPincode;
+
+    @FindBy(css="div.checkDelivery-base-checkBtn.checkDelivery-base-valid")
+    public WebElement check;
+
+    @FindBy(css="div.addressStrip-base-title")
+    public WebElement deliverToPinCode;
 
     public CartCheckOutPage(){
         PageFactory.initElements(Keyword.getDriver(),this);
@@ -71,4 +87,18 @@ public class CartCheckOutPage {
         return found;
     }
 
+    public void enterPinCode(String pincode) {
+        if(btnPinCode.isDisplayed()){
+            btnPinCode.click();
+        }
+        if(dlgDeliveryPinCode.isDisplayed()){
+           inputPincode.sendKeys(pincode);
+            check.click();
+        }
+        WaitFor.waitForElementToContainText(btnPinCode,"CHANGE ADDRESS");
+    }
+
+    public String getDeliverToPinCode() {
+        return deliverToPinCode.getText();
+    }
 }

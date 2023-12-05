@@ -27,6 +27,9 @@ public class MainMenu {
     @FindBy(css= "a[href='/men-jeans']")
     public WebElement menuItemMenJeans;
 
+    @FindBy(css= "a[href='/men-jackets']")
+    public WebElement menuItemMenJackets;
+
     public MainMenu(){
         PageFactory.initElements(Keyword.getDriver(),this);
     }
@@ -60,6 +63,9 @@ public class MainMenu {
                 break;
             case "jeans":
                 menuItemMenJeans.click();
+                break;
+            case "jackets":
+                menuItemMenJackets.click();
                 break;
             default:
                 throw new InvalidMenuItemException(menuItem);

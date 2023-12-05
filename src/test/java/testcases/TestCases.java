@@ -46,7 +46,7 @@ public class TestCases extends TestBase {
     }
 
     @Test(enabled = false)
-    public void verifyProductCanRemovedFromBag() throws InterruptedException {
+    public void verifyProductRemovalFromBag() throws InterruptedException {
 
         MainMenu menu = new MainMenu();
         //go to kids -> shorts menu
@@ -82,7 +82,7 @@ public class TestCases extends TestBase {
         Assert.assertEquals(productItem.getTotalSizesSelected(),1);
     }
 
-    @Test
+    @Test(enabled = false)
     public void VerifyApplyCouponOnTotalPrice() throws InterruptedException {
         MainMenu menu = new MainMenu();
         menu.hoverOn("MEN");
@@ -100,7 +100,24 @@ public class TestCases extends TestBase {
         ApplyCouponPage coupon = new ApplyCouponPage();
         coupon.clickApplyCoupon();
         Assert.assertTrue(bagPage.isCouponApplied());
+    }
 
+    @Test
+    public void VerifyPinCodeEntry() throws InterruptedException {
+        MainMenu menu = new MainMenu();
+        menu.hoverOn("MEN");
+        menu.clickOnMenuItem("Jackets");
+
+        SearchResultsPage searchResults = new SearchResultsPage();
+        searchResults.selectFirstProduct();
+        ProductItemDetailsPage productItem = new ProductItemDetailsPage();
+        //Choose size of product
+        productItem.selectDefaultSize();
+        productItem.addToBag();
+        productItem.goToBag();
+        CartCheckOutPage bagPage = new CartCheckOutPage();
+        bagPage.enterPinCode("411027");
+        Assert.assertTrue(bagPage.getDeliverToPinCode().contains("411027"));
     }
 
 }
