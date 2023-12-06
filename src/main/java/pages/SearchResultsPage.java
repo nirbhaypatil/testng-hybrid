@@ -1,9 +1,12 @@
 package pages;
 
+import errors.InvalidMenuItemException;
 import keywords.Keyword;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import waits.WaitFor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,9 @@ public class SearchResultsPage {
     @FindBy(css ="ul.results-base div.product-price")
     public List<WebElement> itemPrices;
 
+    @FindBy(css="div.sort-sortBy")
+    public WebElement listSortBy;
+
     public SearchResultsPage(){
         PageFactory.initElements(Keyword.getDriver(),this);
     }
@@ -31,8 +37,27 @@ public class SearchResultsPage {
     public List<Integer> getPrices(){
         List<Integer> prices = new ArrayList<>() ;
         for ( WebElement itemPrice : itemPrices ) {
-            prices.add( Integer.parseInt(itemPrice.getText());
+            prices.add( Integer.parseInt(itemPrice.getText()));
         }
        return prices;
+    }
+
+    public void sortByPrices(String criteria) {
+       Keyword keyword = new Keyword();
+       keyword.hoverOn( listSortBy);
+
+       switch(criteria.toLowerCase()){
+           case "hightolow":
+               List<WebElement> options = listSortBy.findElements(By.cssSelector("li label"));
+               for ( WebElement option: options) {
+                   if(option.getText().equalsIgnoreCase("Price: High to Low")) {
+                       option.click();
+                       break;
+                   }
+               }
+               break;
+           default:
+               throw new InvalidMenuItemException(criteria);
+       }
     }
 }

@@ -5,6 +5,9 @@ import base.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.*;
+import waits.WaitFor;
+
+import java.util.List;
 
 public class TestCases extends TestBase {
 
@@ -127,9 +130,8 @@ public class TestCases extends TestBase {
         menu.clickOnMenuItem("T-Shirts");
 
         SearchResultsPage searchResults = new SearchResultsPage();
-        searchResults.sortPriceHighToLow();
-
-
+        searchResults.sortByPrices("hightolow");
+        List<Integer> prices =  searchResults.getPrices();
 
     }
 }
