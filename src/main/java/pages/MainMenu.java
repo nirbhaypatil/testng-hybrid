@@ -30,6 +30,9 @@ public class MainMenu {
     @FindBy(css= "a[href='/men-jackets']")
     public WebElement menuItemMenJackets;
 
+    @FindBy(css= "a[href='/men-tshirts']")
+    public WebElement menuItemMenTShirts;
+
     public MainMenu(){
         PageFactory.initElements(Keyword.getDriver(),this);
     }

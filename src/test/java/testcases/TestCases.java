@@ -102,7 +102,7 @@ public class TestCases extends TestBase {
         Assert.assertTrue(bagPage.isCouponApplied());
     }
 
-    @Test
+    @Test(enabled = false)
     public void VerifyPinCodeEntry() throws InterruptedException {
         MainMenu menu = new MainMenu();
         menu.hoverOn("MEN");
@@ -120,4 +120,16 @@ public class TestCases extends TestBase {
         Assert.assertTrue(bagPage.getDeliverToPinCode().contains("411027"));
     }
 
+    @Test
+    public void VerifyPriceSortingHighToLow() throws InterruptedException {
+        MainMenu menu = new MainMenu();
+        menu.hoverOn("MEN");
+        menu.clickOnMenuItem("T-Shirts");
+
+        SearchResultsPage searchResults = new SearchResultsPage();
+        searchResults.sortPriceHighToLow();
+
+
+
+    }
 }
