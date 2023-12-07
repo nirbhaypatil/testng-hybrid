@@ -35,10 +35,14 @@ public class SearchResultsPage {
     }
 
     public List<Integer> getPrices(){
+        Keyword keyword = new Keyword();
+        // To avoid StaleElementException
+        Keyword.getDriver().navigate().refresh();
         List<Integer> prices = new ArrayList<>() ;
         for ( WebElement itemPrice : itemPrices ) {
-            prices.add( Integer.parseInt(itemPrice.getText()));
+            prices.add( Integer.parseInt(itemPrice.getText().split("Rs. ",-1)[1]));
         }
+        System.out.println(prices);
        return prices;
     }
 
@@ -55,6 +59,7 @@ public class SearchResultsPage {
                        break;
                    }
                }
+               WaitFor.waitForElementToPresent(searchResult);
                break;
            default:
                throw new InvalidMenuItemException(criteria);

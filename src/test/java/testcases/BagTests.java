@@ -131,13 +131,11 @@ public class BagTests extends TestBase {
 
         SearchResultsPage searchResults = new SearchResultsPage();
         searchResults.sortByPrices("hightolow");
+
         List<Integer> prices =  searchResults.getPrices();
         SoftAssert softly = new SoftAssert();
-
         for( int i =0 ; i< prices.size()-1;i++ ){
-            System.out.println(prices.get(i));
-            System.out.println(prices.get(i+1));
-            softly.assertTrue(prices.get(i).compareTo(prices.get(i+1)) > 0,"Prices not in asc order");
+            softly.assertFalse(prices.get(i).compareTo(prices.get(i+1)) < 0,"Prices not in high to low order");
         }
         softly.assertAll();
     }
