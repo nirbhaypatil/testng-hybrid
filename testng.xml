@@ -1,7 +1,7 @@
 <suite name="Suite1" verbose="1" >
     <test name="assignment">
         <classes>
-            <class name="testcases.TestCases"/>
+            <class name="testcases.BagTests"/>
         </classes>
     </test>
 </suite>

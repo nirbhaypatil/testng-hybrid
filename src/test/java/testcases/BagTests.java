@@ -4,12 +4,12 @@ package testcases;
 import base.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.*;
-import waits.WaitFor;
 
 import java.util.List;
 
-public class TestCases extends TestBase {
+public class BagTests extends TestBase {
 
     @Test(enabled = false)
     public void verifyErrorMessageForNoKidsShortsInBag() throws InterruptedException {
@@ -132,6 +132,13 @@ public class TestCases extends TestBase {
         SearchResultsPage searchResults = new SearchResultsPage();
         searchResults.sortByPrices("hightolow");
         List<Integer> prices =  searchResults.getPrices();
+        SoftAssert softly = new SoftAssert();
 
+        for( int i =0 ; i< prices.size()-1;i++ ){
+            System.out.println(prices.get(i));
+            System.out.println(prices.get(i+1));
+            softly.assertTrue(prices.get(i).compareTo(prices.get(i+1)) > 0,"Prices not in asc order");
+        }
+        softly.assertAll();
     }
 }
