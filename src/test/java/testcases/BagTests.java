@@ -123,20 +123,5 @@ public class BagTests extends TestBase {
         Assert.assertTrue(bagPage.getDeliverToPinCode().contains("411027"));
     }
 
-    @Test
-    public void VerifyPriceSortingHighToLow() throws InterruptedException {
-        MainMenu menu = new MainMenu();
-        menu.hoverOn("MEN");
-        menu.clickOnMenuItem("T-Shirts");
 
-        SearchResultsPage searchResults = new SearchResultsPage();
-        searchResults.sortByPrices("hightolow");
-
-        List<Integer> prices =  searchResults.getPrices();
-        SoftAssert softly = new SoftAssert();
-        for( int i =0 ; i< prices.size()-1;i++ ){
-            softly.assertFalse(prices.get(i).compareTo(prices.get(i+1)) < 0,"Prices not in high to low order");
-        }
-        softly.assertAll();
-    }
 }

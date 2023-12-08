@@ -49,10 +49,11 @@ public class SearchResultsPage {
     public void sortByPrices(String criteria) {
        Keyword keyword = new Keyword();
        keyword.hoverOn( listSortBy);
+       List<WebElement> options = listSortBy.findElements(By.cssSelector("li label"));
 
-       switch(criteria.toLowerCase()){
+        switch(criteria.toLowerCase()){
            case "hightolow":
-               List<WebElement> options = listSortBy.findElements(By.cssSelector("li label"));
+
                for ( WebElement option: options) {
                    if(option.getText().equalsIgnoreCase("Price: High to Low")) {
                        option.click();
@@ -61,6 +62,15 @@ public class SearchResultsPage {
                }
                WaitFor.waitForElementToPresent(searchResult);
                break;
+           case "lowtohigh":
+           for ( WebElement option: options) {
+               if(option.getText().equalsIgnoreCase("Price: Low to High")) {
+                   option.click();
+                   break;
+               }
+           }
+           WaitFor.waitForElementToPresent(searchResult);
+           break;
            default:
                throw new InvalidMenuItemException(criteria);
        }

@@ -2,6 +2,7 @@
     <test name="assignment">
         <classes>
             <class name="testcases.BagTests"/>
+            <class name="testcases.SortProductsTests"/>
         </classes>
     </test>
 </suite>
